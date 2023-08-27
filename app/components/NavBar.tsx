@@ -38,6 +38,12 @@ export const NavBar = () => {
                         >
                             My Notes
                         </Link>
+                        <Link
+                            to="/mylist"
+                            className={LINK_STYLE}
+                        >
+                            My List
+                        </Link>
                         <Form action="/logout" method="post">
                             <button
                                 type="submit"
