@@ -1,9 +1,18 @@
 import { useState } from "react";
 
+//TODO:
+/**
+ * 1. onclick li to delete or edit
+ * 2. make columns for want to watch, watchlist, completed, dropped.
+ * 3. make anime object model for typescript
+ * 4. 
+ */
 
 export default function MyListIndexPage() {
   const [newAnime, setNewAnime] = useState("")
   const [animeList, setAnimeList] = useState([""])
+  const [editing, setEditing] = useState(false)
+  const [editAnime, setEditAnime] = useState("")
 
   const onChangeNewAnimeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewAnime(e.target.value)
@@ -14,11 +23,23 @@ export default function MyListIndexPage() {
     setAnimeList(animeList => [ newAnime , ...animeList]);
   }
 
-  const onClickAnime = (anime:"") => {
+  const onClickEdit = (anime: string) => {
+    setEditing(true)
+    setEditAnime(anime)
+  }
+
+  const onClickSaveEdit = (anime: string) => {
+    setEditing(false)
+    const removedEditingAnime = animeList.filter(( animeInList ) => animeInList !== anime)
+    setAnimeList([ editAnime, ...removedEditingAnime ])
+  }
+
+  const onClickDel = (anime:"") => {
     console.log(anime)
     // const updatedList = animeList.filter(( animeInList ) => animeInList !== anime)
     setAnimeList(animeList.filter(( animeInList ) => animeInList !== anime))
   }
+
   return (
     <div>
       <p>New anime</p>
@@ -31,8 +52,19 @@ export default function MyListIndexPage() {
           ) : (
             <ol>
               {animeList.map((anime:any) => (
-                <li id={anime} onClick={() => onClickAnime(anime)}>
+                <li>{editing ? 
+                  (<><input 
+                      type="text" 
+                      value={editAnime}
+                      onChange={(e)=> {setEditAnime(e.target.value)}}
+                      className="border"/>
+                    <button className="border" onClick={() => {onClickSaveEdit(anime)}}>Save</button></>) : 
+                  <p onClick={() => onClickEdit(anime)}>
                     📝 {anime}
+                  </p>}
+                  <button className="border" onClick={() => onClickDel(anime)}>
+                    del
+                  </button>
                 </li>
               ))}
             </ol>
