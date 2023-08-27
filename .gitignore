@@ -8,7 +8,3 @@ node_modules
 /cypress/videos
 /prisma/data.db
 /prisma/data.db-journal
-
-.pnpm-store/
-XL-Dockerfile
-docker-compose.yml

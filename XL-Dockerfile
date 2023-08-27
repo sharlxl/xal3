@@ -1,0 +1,6 @@
+FROM node:18.16.0-buster-slim
+WORKDIR /app
+COPY . .
+EXPOSE 3000
+RUN npm i -g pnpm
+CMD pnpm i && pnpm run dev

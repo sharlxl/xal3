@@ -1,0 +1,12 @@
+version: '3'
+services:
+  web-app:
+    env_file:
+      - .env.example
+    build:
+      context: .
+      dockerfile: ./XL-Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
